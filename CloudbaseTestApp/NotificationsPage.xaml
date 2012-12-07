@@ -1,0 +1,53 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CloudbaseTestApp.NotificationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/next.png" Text="log" Click="ApplicationBarIconButton_Click_1"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/upload.png" Text="data" Click="ApplicationBarIconButton_Click_3"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/download.png" Text="notifications" Click="ApplicationBarIconButton_Click_4"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.settings.png" Text="functions" Click="ApplicationBarIconButton_Click_2"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="CLOUDBASE.IO HELPER CLASS TEST" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="notification api" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Loaded="ContentPanel_Loaded">
+            <Button Content="send toast notification" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_1"/>
+            <TextBox x:Name="ToastMessageBox" HorizontalAlignment="Left" Height="72" Margin="0,38,0,0" TextWrapping="Wrap" Text="toast message" VerticalAlignment="Top" Width="456"/>
+            <TextBox x:Name="TileMessageBox" HorizontalAlignment="Left" Height="72" Margin="0,166,0,0" TextWrapping="Wrap" Text="tile title" VerticalAlignment="Top" Width="456"/>
+            <TextBox x:Name="TileCountBox" HorizontalAlignment="Left" Height="72" Margin="0,238,0,0" TextWrapping="Wrap" Text="tile count" VerticalAlignment="Top" Width="193"/>
+            <Button Content="send tile notification" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_2"/>
+            <TextBox x:Name="RawMessageBox" HorizontalAlignment="Left" Height="72" Margin="0,368,0,0" TextWrapping="Wrap" Text="raw notification" VerticalAlignment="Top" Width="456"/>
+            <Button Content="send raw notification" HorizontalAlignment="Left" Margin="10,422,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_3"/>
+            <TextBlock x:Name="NotifUriText" HorizontalAlignment="Left" Margin="10,-18,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="436" FontWeight="Bold" Height="56"/>
+
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
