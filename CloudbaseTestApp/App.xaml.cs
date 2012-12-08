@@ -88,6 +88,7 @@ namespace CloudbaseTestApp
                 App.helper.SetPassword(pwd.ToLower());        
             }
 
+            // enable geo-location for the data APIs.
             GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
             watcher.PositionChanged += delegate(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
             {
@@ -96,13 +97,12 @@ namespace CloudbaseTestApp
                 {
                     if (App.helper != null)
                     {
+                        // once we have a location we set the variable in the helper class and we stop looking
                         App.helper.CurrentLocation = e.Position;
                         watcher.Stop();
                         watcher.Dispose();
                         watcher = null;
                     }
-                    //location = e.Position.Location;
-                    //ObtainCountry();//by this funtion you obtain country region
                 }
             };
 

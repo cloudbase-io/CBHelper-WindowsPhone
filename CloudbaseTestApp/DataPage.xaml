@@ -40,10 +40,11 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Loaded="ContentPanel_Loaded">
             <Button Content="insert object" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_3"/>
-            <Button Content="insert object with files" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_1"/>
-            <Button Content="search objects" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_2"/>
-            <TextBlock x:Name="OutputBox" HorizontalAlignment="Left" Margin="10,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="260" Width="436"/>
-            <Button Content="download image file" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_4"/>
+            <Button Content="insert object with files" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_1"/>
+            <Button Content="search objects" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_2"/>
+            <TextBlock x:Name="OutputBox" HorizontalAlignment="Left" Margin="10,337,0,-42" TextWrapping="Wrap" VerticalAlignment="Top" Height="240" Width="436"/>
+            <Button Content="download image file" HorizontalAlignment="Left" Margin="10,265,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_4"/>
+            <TextBox x:Name="fileIdBox" HorizontalAlignment="Left" Height="72" Margin="10,204,0,0" TextWrapping="Wrap" Text="cloudbase.io file id" VerticalAlignment="Top" Width="436"/>
 
         </Grid>
     </Grid>

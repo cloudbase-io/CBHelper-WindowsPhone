@@ -39,25 +39,10 @@ namespace CloudbaseTestApp
             {
                 string appCode = Convert.ToString(settings["app_code"]);
                 string appUniq = Convert.ToString(settings["app_uniq"]);
-                //string pwd = Convert.ToString(settings["app_pwd"]);
-
+                
                 this.AppCodeBox.Text = appCode;
                 this.AppUniqBox.Text = appUniq;
-                //this.AppPwd.Text = pwd;
             }
-
-            /*
-            WebClient client = new WebClient();
-            client.DownloadStringAsync(new Uri("http://google.com"));
-            client.DownloadStringCompleted += delegate(Object sender, DownloadStringCompletedEventArgs e)
-            {
-                if (e.Error != null)
-                    System.Diagnostics.Debug.WriteLine("google " + e.Error.Message);
-                else
-                    System.Diagnostics.Debug.WriteLine("google " + e.Result);
-            };
-             * */
-            System.Diagnostics.Debug.WriteLine("SettingsPage");
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -127,6 +112,8 @@ namespace CloudbaseTestApp
             }
         }
 
+        // this method downloads a static image from flickr and saves it into the gallery. This image is then
+        // used to test the data APIs when inserting objects with files.
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             WebClient wc = new WebClient();  

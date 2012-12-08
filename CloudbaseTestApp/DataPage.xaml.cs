@@ -60,11 +60,12 @@ namespace CloudbaseTestApp
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            // loop over the images in the media library looking for downloaded.jpg. This image comes from the 
+            // download method in the SettingsScreen
             MediaLibrary lib = new MediaLibrary();
             Picture attachmentPic = null;
             foreach (Picture curPic in lib.Pictures)
             {
-                //System.Diagnostics.Debug.WriteLine("curPic: " + curPic.Name + " - " + curPic.);
                 if (curPic.Name.Equals("downloaded.jpg"))
                 {
                     attachmentPic = curPic;
@@ -77,6 +78,7 @@ namespace CloudbaseTestApp
                 MessageBox.Show("Please use the settings page to save a test picture before running this API");
                 return; 
             }
+            // create a new attachment with the resized picture file
             CBHelper.CBHelperAttachment attachment = new CBHelper.CBHelperAttachment();
             attachment.FileName = attachmentPic.Name;
             WriteableBitmap pic = PictureDecoder.DecodeJpeg(attachmentPic.GetImage());
@@ -107,6 +109,7 @@ namespace CloudbaseTestApp
             CBHelper.CBHelperSearchCondition cond = new CBHelper.CBHelperSearchCondition("FirstName", CBHelper.CBConditionOperator.CBOperatorEqual, "Cloud");
             if (App.helper != null)
             {
+                // search documents in the test collection
                 App.helper.SearchDocument("users", cond, delegate(CBHelper.CBResponseInfo resp)
                 {
                     this.OutputBox.Text = "OUTPUT: " + resp.OutputString;
@@ -142,7 +145,7 @@ namespace CloudbaseTestApp
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            string ImageID = "d07bbdbef6918f42155e33270bda6de2";
+            string ImageID = this.fileIdBox.Text;
 
             App.helper.DownloadFile(ImageID, delegate(byte[] imageData)
             {
