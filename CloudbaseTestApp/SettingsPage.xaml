@@ -46,6 +46,7 @@
             <TextBox x:Name="AppPwd" HorizontalAlignment="Left" Height="72" Margin="10,154,-10,0" TextWrapping="Wrap" Text="application password" VerticalAlignment="Top" Width="456"/>
             <Button x:Name="SaveButton" Content="save" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="446" Click="SaveButton_Click"/>
             <Button Content="download test picture" HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="446" Click="Button_Click_1"/>
+            <Button x:Name="PayPalButton" Content="PayPal purchase" HorizontalAlignment="Left" Margin="10,314,0,0" VerticalAlignment="Top" Width="446" Click="PayPalButton_Click"/>
 
         </Grid>
     </Grid>

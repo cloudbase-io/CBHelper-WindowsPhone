@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 using System.IO.IsolatedStorage;
 using System.IO;
 using Microsoft.Xna.Framework.Media;
@@ -133,6 +134,39 @@ namespace CloudbaseTestApp
             };  
             
             wc.OpenReadAsync(new Uri("http://farm8.staticflickr.com/7276/7856122900_0de82be225_m.jpg"));  
+        }
+
+        private void PayPalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (App.helper != null)
+            {
+                CBHelper.CBPayPalBillItem item = new CBHelper.CBPayPalBillItem();
+                item.Name = "Test item 1";
+                item.Description = "Test item 1 for $9.99";
+                item.Amount = 9.99;
+                item.Tax = 0;
+                item.Quantity = 1;
+
+                CBHelper.CBPayPalBill bill = new CBHelper.CBPayPalBill();
+                bill.Name = "Test PayPal bill 1";
+                bill.Description = "Test PayPal bill 1 for $9.99";
+                bill.Currency = "USD";
+                bill.InvoiceNumber = "TEST_INV_1";
+                bill.AddNewItem(item);
+
+                App.helper.PreparePayPalPurchase(bill, false, delegate(CBHelper.CBResponseInfo resp)
+                {
+                    if (resp.Status)
+                    {
+                        if (((Dictionary<string, object>)resp.Data).ContainsKey("checkout_url"))
+                        {
+                            App.PayPalCheckoutUrl = Convert.ToString(((Dictionary<string, object>)resp.Data)["checkout_url"]);
+                            NavigationService.Navigate(new Uri("/PayPalBrowser.xaml", UriKind.Relative));
+                        }
+                    }
+                    return true;
+                });
+            }
         }
     }
 }

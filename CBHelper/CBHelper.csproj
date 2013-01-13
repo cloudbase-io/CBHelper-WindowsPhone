@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="CBHelper.cs" />
     <Compile Include="CBHelperSearchCondition.cs" />
+    <Compile Include="CBPayPal.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

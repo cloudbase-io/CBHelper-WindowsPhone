@@ -40,6 +40,7 @@ namespace CloudbaseTestApp
         public static PhoneApplicationFrame RootFrame { get; private set; }
         public static CBHelper.CBHelper helper;
         public static string NotifUri;
+        public static string PayPalCheckoutUrl;
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

@@ -54,6 +54,12 @@ namespace CBHelper
         CBConditionLinkNor = 2
     }
 
+    public enum CBSortDirection
+    {
+        CBSortAscending = 1,
+        CBSortDescending = -1
+    }
+
     /// <summary>
     /// This object is used by the cloudbase APIs to run search over a collection. Each CBHelperSearchCondition object can
     /// contain a List of subconditions (other CBHelperSearchCondition objects)
@@ -65,6 +71,18 @@ namespace CBHelper
         private object value;
         private CBConditionOperator conditionOperator;
         private CBConditionLink conditionLink;
+        private List<Dictionary<String, String>> sortKeys;
+        private int limit;
+
+        /// <summary>
+        /// This property is the maximum number of results to be returned by the search
+        /// </summary>
+        public int Limit
+        {
+            get { return limit; }
+            set { limit = value; }
+        }
+
         /// <summary>
         /// The link between the previous analyzed condition and this one.
         /// </summary>
@@ -104,6 +122,7 @@ namespace CBHelper
         public CBHelperSearchCondition(List<CBHelperSearchCondition> SubConditions)
         {
             this.conditions = SubConditions;
+            this.Limit = -1;
         }
 
         /// <summary>
@@ -132,6 +151,7 @@ namespace CBHelper
             this.field = field;
             this.conditionOperator = op;
             this.value = value;
+            this.Limit = -1;
         }
 
         /// <summary>
@@ -170,6 +190,23 @@ namespace CBHelper
             this.conditions.Add(cond);
         }
         /// <summary>
+        /// Add a sorting condition to your search. You can add multiple fields to sort by.
+	    /// It is only possible to sort on top level fields and not on objects.
+        /// </summary>
+        /// <param name="fieldName">The name of the field in the collection</param>
+        /// <param name="direction">The CBSortDirection for the sort</param>
+        public void AddSortField(string fieldName, CBSortDirection direction)
+        {
+            if (this.sortKeys == null)
+                this.sortKeys = new List<Dictionary<string, string>>();
+
+            Dictionary<string, string> newSortKey = new Dictionary<string,string>();
+            newSortKey.Add(fieldName, Convert.ToString(direction));
+
+            this.sortKeys.Add(newSortKey);
+        }
+
+        /// <summary>
         /// Serializes the current condition and sub-conditions to a nested set of Dictionaries which can
         /// then be serialised to JSON to be sent to the cloudbase.io APIs
         /// </summary>
@@ -184,8 +221,19 @@ namespace CBHelper
             else
                 finalConditions = conds;
 
+            if (this.sortKeys != null && this.sortKeys.Count > 0)
+            {
+                finalConditions.Add("cb_sort_key", this.sortKeys);
+            }
+
+            if (this.Limit > 0)
+            {
+                finalConditions.Add("cb_limit", Convert.ToString(this.Limit));
+            }
+
             return finalConditions;
         }
+
         /// <summary>
         /// Serializes the given condition and sub-conditions to a nested set of Dictionaries which can
         /// then be serialised to JSON to be sent to the cloudbase.io APIs

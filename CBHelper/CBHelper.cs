@@ -732,6 +732,74 @@ namespace CBHelper
             this.sendRequest("applet", url, null, Params, null, whenDone);
         }
 
+        /// <summary>
+        /// Calls PayPal and requests a token for the express checkout of digital goods.
+        /// The PayPal API credentials must be set in the cloudbase.io control panel for this method to work.
+        /// </summary>
+        /// <param name="bill">A populated CBPayPalBill object with at least one detail item</param>
+        /// <param name="isLiveEnvironment">Whether the call should be made to the PayPal production or sandbox environments</param>
+        /// <param name="whenDone">A delegate to manage the results returned from the server - specifically the token and checkout url</param>
+        public void PreparePayPalPurchase(CBPayPalBill bill, bool isLiveEnvironment, Func<CBResponseInfo, bool> whenDone)
+        {
+            string url = this.getUrl() + this.appCode + "/paypal/prepare";
+
+            Dictionary<string, object> values = new Dictionary<string, object>();
+            values.Add("purchase_details", bill.serializePurchase());
+            values.Add("environment", (isLiveEnvironment ? "live" : "sandbox"));
+            values.Add("currency", bill.Currency);
+            values.Add("type", "purchase");
+            values.Add("completed_cloudfunction", bill.PaymentCompletedFunction);
+            values.Add("cancelled_cloudfunction", bill.PaymentCancelledFunction);
+            if (bill.PaymentCompletedUrl != null)
+                values.Add("payment_completed_url", bill.PaymentCompletedUrl);
+            if (bill.PaymentCancelledUrl != null)
+                values.Add("payment_cancelled_url", bill.PaymentCancelledUrl);
+
+            this.sendRequest("paypal", url, values, null, null, whenDone);
+        }
+        
+        /// <summary>
+        /// This method checks whether a PayPal transaction initiated with the PreparePayPalPurchase method is completed.
+        /// This should be called on the Navigating event of the WebBrowser object. The Uri from the Navigating Event should
+        /// be passed to this method.
+        /// The Payment status on cloudbase.io will automatically be updated. Once that is completed your whenDone method will
+        /// be triggered.
+        /// The method will return right away and you can start closing the Page and handle the outcome of the payment in the 
+        /// whenDone method
+        /// </summary>
+        /// <param name="browserUri">The Uri received from the Navigating event of the WebBrowser object</param>
+        /// <param name="whenDone">A delegate to handle the outcome of the payment</param>
+        /// <returns>true if the payment is complete and you can close the Browser. false if PayPal is still interacting
+        /// with the user and processing the payment</returns>
+        public bool IsPayPayPaymentComplete(Uri browserUri, Func<CBResponseInfo, bool> whenDone)
+        {
+            string redirectUrl = browserUri.AbsoluteUri;
+
+            if (redirectUrl.IndexOf("/paypal/update-status") != -1)
+            {
+                this.sendRequest("paypal", redirectUrl, new Dictionary<string, string>(), null, null, whenDone);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Retrieves the information about a PayPal purchase which has been initiated with the preparePayPalPurchase method.
+        /// The paymentId is returned when the payment is prepared and completed.
+        /// </summary>
+        /// <param name="paymentId">The payment id returned by cloudbase.io</param>
+        /// <param name="whenDone">A delegate to use the details returned by the cloudbase.io APIs</param>
+        public void GetPayPalPaymentDetails(string paymentId, Func<CBResponseInfo, bool> whenDone)
+        {
+            string url = this.getUrl() + this.appCode + "/paypal/payment-details";
+
+            Dictionary<string, string> values = new Dictionary<string, string>();
+            values.Add("payment_id", paymentId);
+
+            this.sendRequest("paypal", url, values, null, null, whenDone);
+        }
+
         private string getUrl()
         {
             return (this.isHttps ? "https://" : "http://") + this.apiUrl + "/";
