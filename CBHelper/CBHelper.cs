@@ -36,6 +36,34 @@ using System.IO;
 
 namespace CBHelper
 {
+
+/*! \mainpage cloudbase.io Windows Phone Helper Class Reference
+*
+* \section intro_sec Introduction
+*
+* This program is free software; you can redistribute it and/or modify it under
+* the terms of the GNU General Public License, version 2, as published by
+* the Free Software Foundation.<br/><br/>
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+* or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+* for more details.<br/><br/>
+
+* You should have received a copy of the GNU General Public License
+* along with this program; see the file COPYING.  If not, write to the Free
+* Software Foundation, 59 Temple Place - Suite 330, Boston, MA
+* 02111-1307, USA.<br/><br/>
+*
+* \section install_sec Getting Started
+* 
+* The cloudbase.io Windows Phone helper class compiles to .dll library.<br/><br/>
+* The cloudbase.io helper class for Windows Phone utilizes the Newtonsoft.Json package. While this package
+* is included in the solution you can get new updates and fixes using NuGet<br/><br/>
+* This full reference is a companion to <a href="/documentation/winmo" target="_blank">
+* the tutorial on the cloudbase.io website<a/>
+*/
+
     /// <summary>
     /// The possible log levels for the log APIs
     /// </summary>
