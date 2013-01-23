@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBHelper
+namespace CBHelper.DataCommands
 {
     /// <summary>
     /// The set of possible operators for a CBHelperSearchCondition
@@ -64,7 +64,7 @@ namespace CBHelper
     /// This object is used by the cloudbase APIs to run search over a collection. Each CBHelperSearchCondition object can
     /// contain a List of subconditions (other CBHelperSearchCondition objects)
     /// </summary>
-    public class CBHelperSearchCondition
+    public class CBHelperSearchCondition : CBDataAggregationCommand
     {
         private List<CBHelperSearchCondition> conditions;
         private string field;
@@ -115,6 +115,12 @@ namespace CBHelper
             "$nor"
         };
 
+        public CBHelperSearchCondition()
+        {
+            this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
+            this.Limit = -1;
+        }
+
         /// <summary>
         /// Creates a new empty CBHelperSearchCondition object containing a number of subconditions
         /// </summary>
@@ -123,6 +129,7 @@ namespace CBHelper
         {
             this.conditions = SubConditions;
             this.Limit = -1;
+            this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
         }
 
         /// <summary>
@@ -152,6 +159,7 @@ namespace CBHelper
             this.conditionOperator = op;
             this.value = value;
             this.Limit = -1;
+            this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
         }
 
         /// <summary>
@@ -206,12 +214,17 @@ namespace CBHelper
             this.sortKeys.Add(newSortKey);
         }
 
+        public override object SerializeAggregateConditions()
+        {
+            return CBHelperSearchCondition.SerializeConditions(this);
+        }
+
         /// <summary>
         /// Serializes the current condition and sub-conditions to a nested set of Dictionaries which can
         /// then be serialised to JSON to be sent to the cloudbase.io APIs
         /// </summary>
         /// <returns>The Dictionary representation of the current set of conditions</returns>
-        public Dictionary<string, object> SeralizeConditions()
+        public Dictionary<string, object> SerializeConditions()
         {
             Dictionary<string, object> conds = CBHelperSearchCondition.SerializeConditions(this);
             Dictionary<string, object> finalConditions = new Dictionary<string, object>();

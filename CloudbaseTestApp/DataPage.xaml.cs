@@ -27,6 +27,7 @@ using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Microsoft.Phone;
 using System.Windows.Media.Imaging;
+using CBHelper.DataCommands;
 
 namespace CloudbaseTestApp
 {
@@ -106,10 +107,26 @@ namespace CloudbaseTestApp
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            CBHelper.CBHelperSearchCondition cond = new CBHelper.CBHelperSearchCondition("FirstName", CBHelper.CBConditionOperator.CBOperatorEqual, "Cloud");
+            CBHelperSearchCondition cond = new CBHelperSearchCondition("FirstName", CBConditionOperator.CBOperatorEqual, "Cloud");
+            /*
+            List<CBDataAggregationCommand> commands = new List<CBDataAggregationCommand>();
+
+            CBDataAggregationCommandProject project = new CBDataAggregationCommandProject();
+            project.IncludeFields.Add("Symbol");
+            project.IncludeFields.Add("Price");
+            project.IncludeFields.Add("AveragePrice");
+            commands.Add(project);
+
+            CBDataAggregationCommandGroup group = new CBDataAggregationCommandGroup();
+            group.AddOutputField("Symbol");
+            group.AddGroupFormulaForField("AveragePrice", CBDataAggregationGroupOperator.CBDataAggregationGroupAvg, "Price");
+            commands.Add(group);
+            */
             if (App.helper != null)
             {
                 // search documents in the test collection
+                //App.helper.DebugMode = true;
+                //App.helper.SearchDocumentAggregate("security_master_3", commands, delegate(CBHelper.CBResponseInfo resp)
                 App.helper.SearchDocument("users", cond, delegate(CBHelper.CBResponseInfo resp)
                 {
                     this.OutputBox.Text = "OUTPUT: " + resp.OutputString;

@@ -84,7 +84,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CBHelper.cs" />
-    <Compile Include="CBHelperSearchCondition.cs" />
+    <Compile Include="DataCommands\CBDataAggregationCommand.cs" />
+    <Compile Include="DataCommands\CBDataAggregationCommandGroup.cs" />
+    <Compile Include="DataCommands\CBDataAggregationCommandProject.cs" />
+    <Compile Include="DataCommands\CBDataAggregationCommandUnwind.cs" />
+    <Compile Include="DataCommands\CBHelperSearchCondition.cs" />
     <Compile Include="CBPayPal.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,9 +96,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Doc\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>

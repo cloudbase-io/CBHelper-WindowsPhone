@@ -168,10 +168,13 @@ namespace CloudbaseTestApp
             {
                 // Display the new URI for testing purposes.   Normally, the URI would be passed back to your web service at this point.
                 System.Diagnostics.Debug.WriteLine(e.ChannelUri.ToString());
-                App.helper.NotificationSubscribeDeviceToChannel(e.ChannelUri.ToString(), "test-winmo");
-                App.NotifUri = e.ChannelUri.ToString();
-                MessageBox.Show(String.Format("Channel Uri is {0}",
-                    e.ChannelUri.ToString()));
+                if (App.helper != null)
+                {
+                    App.helper.NotificationSubscribeDeviceToChannel(e.ChannelUri.ToString(), "test-winmo");
+                    App.NotifUri = e.ChannelUri.ToString();
+                    MessageBox.Show(String.Format("Channel Uri is {0}",
+                        e.ChannelUri.ToString()));
+                }
 
             });
         }

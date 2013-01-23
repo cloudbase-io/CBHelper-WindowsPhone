@@ -33,6 +33,7 @@ using System.Text;
 using Newtonsoft.Json.Converters;
 using System.Device.Location;
 using System.IO;
+using CBHelper.DataCommands;
 
 namespace CBHelper
 {
@@ -540,7 +541,32 @@ namespace CBHelper
         {
             string url = this.getUrl() + this.appCode + "/" + collection + "/search";
 
-            this.sendRequest("data", url, conditions.SeralizeConditions(), null, null, whenDone);
+            this.sendRequest("data", url, conditions.SerializeConditions(), null, null, whenDone);
+        }
+        /// <summary>
+        /// Runs a search over a collection and applies the given list of aggregation commands to the output.
+        /// </summary>
+        /// <param name="collection">The name of the collection to search over</param>
+        /// <param name="aggregateConditions">A set of conditions for the search</param>
+        /// <param name="whenDone">The delegate to be called once the request is completed</param>
+        public void SearchDocumentAggregate(string collection, List<CBDataAggregationCommand> aggregateConditions, Func<CBResponseInfo, bool> whenDone)
+        {
+            List<Dictionary<string, object>> serializedAggregateConditions = new List<Dictionary<string, object>>();
+
+            foreach (CBDataAggregationCommand comm in aggregateConditions)
+            {
+                Dictionary<string, object> serializedCommand = new Dictionary<string, object>();
+                serializedCommand.Add(comm.GetCommandTypeString(), comm.SerializeAggregateConditions());
+
+                serializedAggregateConditions.Add(serializedCommand);
+            }
+
+            Dictionary<string, object> finalConditions = new Dictionary<string, object>();
+            finalConditions.Add("cb_aggregate_key", serializedAggregateConditions);
+
+            string url = this.getUrl() + this.appCode + "/" + collection + "/aggregate";
+
+            this.sendRequest("data", url, finalConditions, null, null, whenDone);
         }
 
         /// <summary>
