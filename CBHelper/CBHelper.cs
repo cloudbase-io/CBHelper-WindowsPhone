@@ -61,7 +61,7 @@ namespace CBHelper
 * The cloudbase.io Windows Phone helper class compiles to .dll library.<br/><br/>
 * The cloudbase.io helper class for Windows Phone utilizes the Newtonsoft.Json package. While this package
 * is included in the solution you can get new updates and fixes using NuGet<br/><br/>
-* This full reference is a companion to <a href="/documentation/winmo" target="_blank">
+* This full reference is a companion to <a href="/documentation/windowsphone" target="_blank">
 * the tutorial on the cloudbase.io website<a/>
 */
 
