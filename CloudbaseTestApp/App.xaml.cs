@@ -28,6 +28,7 @@ using System.Device.Location;
 using Microsoft.Phone.Notification;
 using System.Windows.Threading;
 using System.Text;
+using cloudbase;
 
 namespace CloudbaseTestApp
 {
@@ -38,7 +39,7 @@ namespace CloudbaseTestApp
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
-        public static CBHelper.CBHelper helper;
+        public static CBHelper helper;
         public static string NotifUri;
         public static string PayPalCheckoutUrl;
         /// <summary>
@@ -85,7 +86,7 @@ namespace CloudbaseTestApp
                 string appUniq = Convert.ToString(settings["app_uniq"]);
                 string pwd = Convert.ToString(settings["app_pwd"]);
 
-                App.helper = new CBHelper.CBHelper(appCode, appUniq);
+                App.helper = new CBHelper(appCode, appUniq);
                 App.helper.SetPassword(pwd.ToLower());        
             }
 

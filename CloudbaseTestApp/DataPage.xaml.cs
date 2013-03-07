@@ -27,7 +27,8 @@ using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Microsoft.Phone;
 using System.Windows.Media.Imaging;
-using CBHelper.DataCommands;
+using cloudbase.DataCommands;
+using cloudbase;
 
 namespace CloudbaseTestApp
 {
@@ -80,7 +81,7 @@ namespace CloudbaseTestApp
                 return; 
             }
             // create a new attachment with the resized picture file
-            CBHelper.CBHelperAttachment attachment = new CBHelper.CBHelperAttachment();
+            CBHelperAttachment attachment = new CBHelperAttachment();
             attachment.FileName = attachmentPic.Name;
             WriteableBitmap pic = PictureDecoder.DecodeJpeg(attachmentPic.GetImage());
             Stream picStream = new MemoryStream();
@@ -91,14 +92,14 @@ namespace CloudbaseTestApp
             attachment.FileData = (byte[])buffer;
             picStream.Close();
    
-            List<CBHelper.CBHelperAttachment> attList = new List<CBHelper.CBHelperAttachment>();
+            List<CBHelperAttachment> attList = new List<CBHelperAttachment>();
             attList.Add(attachment);
             TestObject newObj = new TestObject();
             newObj.FirstName = "Cloud";
             newObj.LastName = "Base";
             newObj.Title = ".io";
 
-            App.helper.InsertDocument("users", newObj, attList, delegate(CBHelper.CBResponseInfo resp)
+            App.helper.InsertDocument("users", newObj, attList, delegate(CBResponseInfo resp)
             {
                 this.OutputBox.Text = "OUTPUT: " + resp.OutputString;
                 return true;
@@ -127,7 +128,7 @@ namespace CloudbaseTestApp
                 // search documents in the test collection
                 //App.helper.DebugMode = true;
                 //App.helper.SearchDocumentAggregate("security_master_3", commands, delegate(CBHelper.CBResponseInfo resp)
-                App.helper.SearchDocument("users", cond, delegate(CBHelper.CBResponseInfo resp)
+                App.helper.SearchDocument("users", cond, delegate(CBResponseInfo resp)
                 {
                     this.OutputBox.Text = "OUTPUT: " + resp.OutputString;
                     return true;
@@ -144,7 +145,7 @@ namespace CloudbaseTestApp
 
             if (App.helper != null)
             {
-                App.helper.InsertDocument("users", newObj, delegate(CBHelper.CBResponseInfo resp)
+                App.helper.InsertDocument("users", newObj, delegate(CBResponseInfo resp)
                 {
                     this.OutputBox.Text = "OUTPUT: " + resp.OutputString;
                     return true;

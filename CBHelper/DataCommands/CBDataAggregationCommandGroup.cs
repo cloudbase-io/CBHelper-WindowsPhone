@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBHelper.DataCommands
+namespace cloudbase.DataCommands
 {
     public enum CBDataAggregationGroupOperator
     {

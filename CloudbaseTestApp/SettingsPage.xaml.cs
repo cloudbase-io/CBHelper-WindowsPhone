@@ -27,6 +27,7 @@ using Microsoft.Phone.Tasks;
 using System.IO.IsolatedStorage;
 using System.IO;
 using Microsoft.Xna.Framework.Media;
+using cloudbase;
 
 namespace CloudbaseTestApp
 {
@@ -67,15 +68,15 @@ namespace CloudbaseTestApp
             if (settings.Contains("app_pwd"))
             {
                 settings.Remove("app_pwd");
-                settings.Add("app_pwd", CBHelper.MD5Core.GetHashString(this.AppPwd.Text));
+                settings.Add("app_pwd", MD5Core.GetHashString(this.AppPwd.Text));
             }
             else
-                settings.Add("app_pwd", CBHelper.MD5Core.GetHashString(this.AppPwd.Text));
+                settings.Add("app_pwd", MD5Core.GetHashString(this.AppPwd.Text));
             
             settings.Save();
 
-            App.helper = new CBHelper.CBHelper(this.AppCodeBox.Text, this.AppUniqBox.Text);
-            App.helper.SetPassword(CBHelper.MD5Core.GetHashString(this.AppPwd.Text));
+            App.helper = new CBHelper(this.AppCodeBox.Text, this.AppUniqBox.Text);
+            App.helper.SetPassword(MD5Core.GetHashString(this.AppPwd.Text));
             
         }
 
@@ -140,21 +141,21 @@ namespace CloudbaseTestApp
         {
             if (App.helper != null)
             {
-                CBHelper.CBPayPalBillItem item = new CBHelper.CBPayPalBillItem();
+                CBPayPalBillItem item = new CBPayPalBillItem();
                 item.Name = "Test item 1";
                 item.Description = "Test item 1 for $9.99";
                 item.Amount = 9.99;
                 item.Tax = 0;
                 item.Quantity = 1;
 
-                CBHelper.CBPayPalBill bill = new CBHelper.CBPayPalBill();
+                CBPayPalBill bill = new CBPayPalBill();
                 bill.Name = "Test PayPal bill 1";
                 bill.Description = "Test PayPal bill 1 for $9.99";
                 bill.Currency = "USD";
                 bill.InvoiceNumber = "TEST_INV_1";
                 bill.AddNewItem(item);
 
-                App.helper.PreparePayPalPurchase(bill, false, delegate(CBHelper.CBResponseInfo resp)
+                App.helper.PreparePayPalPurchase(bill, false, delegate(CBResponseInfo resp)
                 {
                     if (resp.Status)
                     {

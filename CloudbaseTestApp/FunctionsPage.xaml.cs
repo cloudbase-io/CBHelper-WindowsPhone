@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using cloudbase;
 
 namespace CloudbaseTestApp
 {
@@ -35,7 +36,7 @@ namespace CloudbaseTestApp
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            App.helper.ExecuteCloudFunction(this.FunctionCodeBox.Text, new Dictionary<string, string>(), delegate(CBHelper.CBResponseInfo resp)
+            App.helper.ExecuteCloudFunction(this.FunctionCodeBox.Text, new Dictionary<string, string>(), delegate(CBResponseInfo resp)
             {
                 this.OutputTextBlock.Text = "CloudFunction output: " + resp.OutputString;
                 return true;
@@ -55,7 +56,7 @@ namespace CloudbaseTestApp
                 Dictionary<string, string> appletParams = new Dictionary<string, string>();
                 appletParams.Add("lat", Convert.ToString(App.helper.CurrentLocation.Location.Latitude));
                 appletParams.Add("lng", Convert.ToString(App.helper.CurrentLocation.Location.Longitude));
-                App.helper.ExecuteApplet("cb_get_address_from_coordinates", appletParams, delegate(CBHelper.CBResponseInfo resp)
+                App.helper.ExecuteApplet("cb_get_address_from_coordinates", appletParams, delegate(CBResponseInfo resp)
                 {
                     this.OutputTextBlock.Text = "Applet output: " + resp.OutputString;
                     return true;

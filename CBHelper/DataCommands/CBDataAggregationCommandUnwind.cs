@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBHelper.DataCommands
+namespace cloudbase.DataCommands
 {
     /**
      * Unwinds an array from a field inside a document by multiplying
