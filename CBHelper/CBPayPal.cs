@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cloudbase
+namespace Cloudbase
 {
     /// <summary>
     /// This is the bill object for the PayPal digital goods payments APIs. A bill object must contain

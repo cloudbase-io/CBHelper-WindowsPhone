@@ -27,7 +27,7 @@ using Microsoft.Phone.Tasks;
 using System.IO.IsolatedStorage;
 using System.IO;
 using Microsoft.Xna.Framework.Media;
-using cloudbase;
+using Cloudbase;
 
 namespace CloudbaseTestApp
 {

@@ -33,9 +33,9 @@ using System.Text;
 using Newtonsoft.Json.Converters;
 using System.Device.Location;
 using System.IO;
-using cloudbase.DataCommands;
+using Cloudbase.DataCommands;
 
-namespace cloudbase
+namespace Cloudbase
 {
 
 /*! \mainpage cloudbase.io Windows Phone Helper Class Reference

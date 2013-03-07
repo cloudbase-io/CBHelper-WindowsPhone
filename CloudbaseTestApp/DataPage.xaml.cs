@@ -27,8 +27,8 @@ using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Microsoft.Phone;
 using System.Windows.Media.Imaging;
-using cloudbase.DataCommands;
-using cloudbase;
+using Cloudbase.DataCommands;
+using Cloudbase;
 
 namespace CloudbaseTestApp
 {

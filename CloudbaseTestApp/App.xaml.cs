@@ -28,7 +28,7 @@ using System.Device.Location;
 using Microsoft.Phone.Notification;
 using System.Windows.Threading;
 using System.Text;
-using cloudbase;
+using Cloudbase;
 
 namespace CloudbaseTestApp
 {
