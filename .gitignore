@@ -1,7 +1,7 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/
 [Oo]bj/
 [Dd]oc/
+CloudbaseTestApp/Bin
 
 .DS_Store
 
@@ -18,7 +18,6 @@ TestResults
 
 # Build results
 [Dd]ebug/
-[Rr]elease/
 x64/
 *_i.c
 *_p.c
@@ -92,7 +91,6 @@ csx
 AppPackages/
 
 # Others
-[Bb]in
 [Oo]bj
 sql
 TestResults
