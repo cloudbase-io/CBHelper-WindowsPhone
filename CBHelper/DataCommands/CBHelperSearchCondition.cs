@@ -294,6 +294,10 @@ namespace CBHelper.DataCommands
                     case CBConditionOperator.CBOperatorAll:
                     case CBConditionOperator.CBOperatorExists:
                     case CBConditionOperator.CBOperatorNe:
+                    case CBConditionOperator.CBOperatorBigger:
+                    case CBConditionOperator.CBOperatorBiggerOrEqual:
+                    case CBConditionOperator.CBOperatorLess:
+                    case CBConditionOperator.CBOperatorLessOrEqual:
                     case CBConditionOperator.CBOperatorIn:
                     case CBConditionOperator.CBOperatorNin:
                     case CBConditionOperator.CBOperatorSize:
