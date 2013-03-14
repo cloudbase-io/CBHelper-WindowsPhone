@@ -16,6 +16,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -160,6 +161,33 @@ namespace Cloudbase.DataCommands
             this.value = value;
             this.Limit = -1;
             this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
+        }
+
+        /// <summary>
+        ///  Creates a new search condition to lookup for records around the given coordinates
+        /// </summary>
+        /// <param name="location">The coordinates to use for the search</param>
+        /// <param name="maxDistance">The radius in meters to search around the coordinates</param>
+        public CBHelperSearchCondition(GeoCoordinate location, double maxDistance)
+        {
+            List<double> points = new List<double>();
+            points.Add(location.Latitude);
+            points.Add(location.Longitude);
+
+            this.field = "cb_location";
+            this.conditionOperator = CBConditionOperator.CBOperatorEqual;
+
+            Dictionary<string, object> searchQuery = new Dictionary<string, object>();
+            searchQuery.Add("$near", points);
+            if (maxDistance != -1)
+            {
+                searchQuery.Add("$maxDistance", (maxDistance / 1000) / 111.12);
+            }
+
+            this.value = searchQuery;
+            this.limit = -1;
+            this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
+            
         }
 
         /// <summary>

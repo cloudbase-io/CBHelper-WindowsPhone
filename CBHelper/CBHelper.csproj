@@ -90,6 +90,7 @@
     <Compile Include="DataCommands\CBDataAggregationCommandUnwind.cs" />
     <Compile Include="DataCommands\CBHelperSearchCondition.cs" />
     <Compile Include="CBPayPal.cs" />
+    <Compile Include="GeoDataStream\CBGeoDataStream.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

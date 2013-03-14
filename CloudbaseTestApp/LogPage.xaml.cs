@@ -23,6 +23,9 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Cloudbase.GeoDataStream;
+using Cloudbase;
+using System.Device.Location;
 
 namespace CloudbaseTestApp
 {

@@ -1021,8 +1021,9 @@ namespace Cloudbase
                         StreamReader streamRead = new StreamReader(streamResponse);
                         string responseString = streamRead.ReadToEnd();
 
-                        IDictionary<string, object> parsedObject = JsonConvert.DeserializeObject<IDictionary<string, object>>(
+                        Dictionary<string, object> parsedObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(
                                 responseString, new JsonConverter[] { new CBJsonDictionaryConverter(), new CBJsonArrayConverter() });
+                        //JsonConvert.DeserializeObject(responseString, IDictionary<string, object>, new JsonConverter[] { new CBJsonDictionaryConverter(), new CBJsonArrayConverter() });
                         //Dictionary<string, object> parsedObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);//JsonConvert.DeserializeObject<Dictionary<string, string>>(output);//JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(output);
 
                         if (this.debugMode)
