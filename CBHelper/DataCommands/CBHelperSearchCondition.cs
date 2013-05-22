@@ -74,6 +74,7 @@ namespace Cloudbase.DataCommands
         private CBConditionLink conditionLink;
         private List<Dictionary<String, String>> sortKeys;
         private int limit;
+        private int offset;
 
         /// <summary>
         /// This property is the maximum number of results to be returned by the search
@@ -82,6 +83,16 @@ namespace Cloudbase.DataCommands
         {
             get { return limit; }
             set { limit = value; }
+        }
+
+        /// <summary>
+        /// The offset for the result set - used for pagination of documents,
+        /// This value indicates how many records to skip before returning the results
+        /// </summary>
+        public int Offset
+        {
+            get { return offset; }
+            set { offset = value; }
         }
 
         /// <summary>
@@ -120,6 +131,7 @@ namespace Cloudbase.DataCommands
         {
             this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
             this.Limit = -1;
+            this.Offset = -1;
         }
 
         /// <summary>
@@ -130,6 +142,7 @@ namespace Cloudbase.DataCommands
         {
             this.conditions = SubConditions;
             this.Limit = -1;
+            this.Offset = -1;
             this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
         }
 
@@ -160,6 +173,7 @@ namespace Cloudbase.DataCommands
             this.conditionOperator = op;
             this.value = value;
             this.Limit = -1;
+            this.Offset = -1;
             this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
         }
 
@@ -186,6 +200,7 @@ namespace Cloudbase.DataCommands
 
             this.value = searchQuery;
             this.limit = -1;
+            this.Offset = -1;
             this.CommandType = CBDataAggregationCommandType.CBDataAggregationMatch;
             
         }
@@ -272,6 +287,11 @@ namespace Cloudbase.DataCommands
                 finalConditions.Add("cb_limit", Convert.ToString(this.Limit));
             }
 
+            if (this.Offset > 0)
+            {
+                finalConditions.Add("cb_offset", Convert.ToString(this.Offset));
+            }
+
             return finalConditions;
         }
 
@@ -286,7 +306,8 @@ namespace Cloudbase.DataCommands
             
             if (cond.field == null) 
             {
-                if (cond.conditions.Count > 1) {
+                if (cond.conditions != null && cond.conditions.Count > 1)
+                {
                     List<object> curObject = new List<object>();
             
                     int prevLink = -1;
@@ -305,7 +326,7 @@ namespace Cloudbase.DataCommands
                         }
                     }
                 }
-                else if (cond.conditions.Count == 1)
+                else if (cond.conditions != null && cond.conditions.Count == 1)
                 {
                     output = CBHelperSearchCondition.SerializeConditions(cond.conditions[0]);
                 }

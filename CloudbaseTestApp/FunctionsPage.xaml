@@ -40,8 +40,9 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBox x:Name="FunctionCodeBox" HorizontalAlignment="Left" Height="72" TextWrapping="Wrap" Text="CloudFunction code" VerticalAlignment="Top" Width="456"/>
             <Button Content="execute CloudFunction" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_1"/>
-            <Button Content="execute address applet" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_2"/>
+            <Button Content="execute address applet" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_2"/>
             <TextBlock x:Name="OutputTextBlock" HorizontalAlignment="Left" Margin="10,282,0,0" TextWrapping="Wrap" Text="the output from the function/applet will be displayed here" VerticalAlignment="Top" Height="191" Width="436"/>
+            <Button Content="execute Shared API" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="436" Click="Button_Click_3" />
 
         </Grid>
     </Grid>

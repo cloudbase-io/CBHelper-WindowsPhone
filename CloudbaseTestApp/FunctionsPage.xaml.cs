@@ -88,5 +88,16 @@ namespace CloudbaseTestApp
         {
             NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> Params = new Dictionary<string,string>();
+            Params.Add("shared_message", "Hello from the Windows Phone demo app");
+            App.helper.ExecuteSharedApi("f_demo-application_demo-shared-api", "cb_demo,1!", Params, delegate(CBResponseInfo resp)
+            {
+                this.OutputTextBlock.Text = "Shared API output: " + resp.OutputString;
+                return true;
+            });
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2012 cloudbase.io
+/* Copyright (C) 2012 cloudbase.io
  
  This program is free software; you can redistribute it and/or modify it under
  the terms of the GNU General Public License, version 2, as published by
@@ -61,7 +61,7 @@ namespace Cloudbase
 * The cloudbase.io Windows Phone helper class compiles to .dll library.<br/><br/>
 * The cloudbase.io helper class for Windows Phone utilizes the Newtonsoft.Json package. While this package
 * is included in the solution you can get new updates and fixes using NuGet<br/><br/>
-* This full reference is a companion to <a href="/documentation/windowsphone" target="_blank">
+* This full reference is a companion to <a href="/documentation/windows-phone-8/get-started" target="_blank">
 * the tutorial on the cloudbase.io website<a/>
 */
 
@@ -742,7 +742,7 @@ namespace Cloudbase
         /// Send an email to the specified recipient using the given template.
         /// 
         /// Before sending emails through the cloudbase.io APIs please verify your DNS configuration as described here
-        /// http://cloudbase.io/documentation/rest-apis#emails
+        /// http://cloudbase.io/documentation/rest-apis/emails
         /// </summary>
         /// <param name="Template">The template code as created on cloudbase.io</param>
         /// <param name="Recipient">The email address of the recipient</param>
@@ -774,7 +774,7 @@ namespace Cloudbase
             this.sendRequest("cloudfunction", url, null, Params, null, whenDone);
         }
         /// <summary>
-        /// Executes an Applet on demand. http://cloudbase.io/documentation/applets
+        /// Executes an Applet on demand. http://cloudbase.io/documentation/applets/get-started
         /// </summary>
         /// <param name="FunctionCode">The unique code identifying the applet on cloudbase.io</param>
         /// <param name="Params">Additional parameters to be passed to the applet</param>
@@ -784,6 +784,25 @@ namespace Cloudbase
             string url = this.getUrl() + this.appCode + "/applet/" + AppletCode;
 
             this.sendRequest("applet", url, null, Params, null, whenDone);
+        }
+
+        /// <summary>
+        /// Executes a Shared Api on demand. http://cloudbase.io/documentation/windows-phone-8/cloud-functions
+        /// </summary>
+        /// <param name="ApiCode">The unique code identifying the Shared API on cloudbase.io</param>
+        /// <param name="Password">The password to access the Shared API if necessary</param>
+        /// <param name="Params">Additional parameters to be passed to the Shared Api</param>
+        /// <param name="whenDone">This delegate will receive the output of the Shared Api once the execution is completed.</param>
+        public void ExecuteSharedApi(string ApiCode, string Password, Dictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
+        {
+            string url = this.getUrl() + this.appCode + "/shared/" + ApiCode;
+
+            if (Password != null && !Password.Equals(""))
+            {
+                Params.Add("cb_shared_password", Password);
+            }
+
+            this.sendRequest("shared-api", url, null, Params, null, whenDone);
         }
 
         /// <summary>
@@ -930,7 +949,7 @@ namespace Cloudbase
             {
                 foreach (KeyValuePair<string, string> kvp in additionalParameters)
                 {
-                    this.requestBodyForParameter(sw, kvp.Key, HttpUtility.UrlEncode(kvp.Value));
+                    this.requestBodyForParameter(sw, kvp.Key, kvp.Value);
                 }
             }
 
@@ -1057,18 +1076,20 @@ namespace Cloudbase
 
         private string GetDeviceUniqueID()
         {
-            object DeviceUniqueID;
+            //object DeviceUniqueID;
 
-            byte[] DeviceIDbyte = null;
+            byte[] DeviceIDbyte = (byte[])DeviceExtendedProperties.GetValue("DeviceUniqueId");
 
-            if (DeviceExtendedProperties.TryGetValue("DeviceUniqueId", out DeviceUniqueID))
+            //if (DeviceExtendedProperties.TryGetValue("DeviceUniqueId", out DeviceUniqueID))
+            //{
+                //DeviceIDbyte = (byte[])DeviceUniqueID;
 
-                DeviceIDbyte = (byte[])DeviceUniqueID;
-
-            string DeviceID = Convert.ToBase64String(DeviceIDbyte);
-            if (this.debugMode)
-                System.Diagnostics.Debug.WriteLine("generated unique device ID: " + DeviceID);
-            return DeviceID;
+                string DeviceID = Convert.ToBase64String(DeviceIDbyte);
+                if (this.debugMode)
+                    System.Diagnostics.Debug.WriteLine("generated unique device ID: " + DeviceID);
+                return DeviceID;
+            //}
+            
         }
     }
 }
