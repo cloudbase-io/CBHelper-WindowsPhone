@@ -76,6 +76,7 @@ namespace CloudbaseTestApp
             settings.Save();
 
             App.helper = new CBHelper(this.AppCodeBox.Text, this.AppUniqBox.Text);
+            App.helper.DebugMode = true;
             App.helper.SetPassword(MD5Core.GetHashString(this.AppPwd.Text));
             
         }
